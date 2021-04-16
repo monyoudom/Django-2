@@ -10,7 +10,7 @@
 
   <ul>  
   {% for Device in filter.qs %}
-    {{ Device.hostname }}<br>
+   <li> {{ Device.device_type }} | {{ Device.mac}} |  {{Device.ip}} |  {{Device.serial_number}} | {{Device.make}} | {{Device.hostname}} </li> <br>
   {% endfor %}
   </ul>
 

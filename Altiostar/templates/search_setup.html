@@ -10,7 +10,7 @@
 
   <ul>  
   {% for Setup in filter.qs %}
-    {{ Setup.setup_name }}<br>
+    {{ Setup.setup_name }} -- {{ Setup.object }}<br>
   {% endfor %}
   </ul>
 
