@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Setup
+{% endblock %}
+
+
+{% block content %}
+<h3>Add Setup </h3>
+
+
+<div class="container">
+    <form method="POST" action="/add_setup/">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="setup">Name Of The Setup</label>
+          <input type="text" class="form-control" id="setup" name= "setup_name" placeholder="1 UE, 2 UE" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Add Device</label>
+            <select input type="text" class="form-control check" id="exampleFormControlInput1" name= "" placeholder="CU, DU" required>
+            
+            {% for tp in type %}
+              <option value="{{ tp }}">{{ tp }}</option>
+            {% endfor %}
+            </select>
+            <select input type="text" class="form-control check1" id="exampleFormControlInput1_1" name= "device1" placeholder="CU, DU" required>
+
+            </select>
+            <div class="input_fields_wrap">
+              <button class="add_field_button">Add More Devices</button>
+            </div>
+            {% comment %} <div class="form-group">
+          <label for="setup">Attenuator</label>
+          <input type="text" class="form-control" id="attenuator" name= "attenuator" placeholder="10db, 5db">
+        </div> {% endcomment %}
+          </div>
+          <button type="submit" class="btn btn-primary"> Submit </button>
+      </form>
+{% endblock %}
+{% block script_block %}
+  $(document).ready(function(){
+  });
+
+  $(document).ready(function() {
+  	var max_fields      = 10; //maximum input boxes allowed
+  	var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+  	var add_button      = $(".add_field_button"); //Add button ID
+
+  	var x = 1; //initlal text box count
+  	$(add_button).click(function(e){ //on add input button click
+  		e.preventDefault();
+  		if(x < max_fields){ //max input box allowed
+  			x++; //text box increment
+  			$(wrapper).append('<div id="ad"><select input type="text" class="form-control check" id="exampleFormControlInput'+x+'_'+x+'" name= "" placeholder="CU, DU" required>{% for tp in type %}<option value="{{ tp }}">{{ tp }}</option>{% endfor %}</select><select input type="text" class="form-control check'+x+'" id="exampleFormControlInput'+x+'" name= "device'+x+'" placeholder="CU, DU" required></select><a href="#" class="remove_field">Remove</a></div>');
+  		}
+  	});
+
+  	$(wrapper).on("click",".remove_field", function(e){
+  		e.preventDefault(); $(this).parent('div').remove(); x--;
+  	});
+
+    $(document).on('change', '#exampleFormControlInput1', function(e) {
+      var data = $(this).find(":selected").text();
+      if (data == "CU"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "CU" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "DU"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "DU" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "RRH"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "RRH" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "UE"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "UE" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "STU"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "STU" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "UE Laptop"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "UE Laptop" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "EPC"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "EPC" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "5G Core"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "5G Core" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "Programmable Attenuators"){
+        $('.check1').find('option').remove();
+        $('.check1').append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "Programmable Attenuators" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      }
+    });
+
+    $(document).on('change', '#ad select', function(e) {
+      var data = $(this).find(":selected").text();
+      var data_id = $(this).attr('id').split("_")[1];
+      if (data == "CU"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "CU" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "DU"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "DU" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "RRH"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "RRH" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "UE"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "UE" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "STU"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "STU" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "UE Laptop"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "UE Laptop" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "EPC"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "EPC" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "5G Core"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "5G Core" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      } else if (data == "Programmable Attenuators"){
+        $('.check'+data_id).find('option').remove();
+        $('.check'+data_id).append('<option value="">select device</option>{% for device in devices %}{% if device.device_type == "Programmable Attenuators" %}<option value="{{ device.slug }}">{{ device.hostname }}</option>{% endif %}{% endfor %}');
+      }
+    });
+  });
+
+
+{% endblock %}

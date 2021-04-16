@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Device Entries  {% endblock  %}
+{% block content %} 
+<div class = "container" >
+<div class = "row">
+
+<table border="3px solid"  >
+<h3> Device DATABASE <h3>
+
+<tr >
+<td><b>Hostname</td>
+<td><b>IP</td>
+<td><b>MAC</td>
+<td><b>Device Type</td>
+<td><b>SNO</td>
+<td><b>Make/Model</td>
+</tr>
+
+           {% for entry in entries %}
+
+
+      <tr>
+     <td> {{ entry.hostname }} </td> 
+    <td>  {{ entry.ip }}  </td> 
+     <td> {{ entry.mac }} </td> 
+     <td> {{ entry.device_type }} </td> 
+     <td> {{ entry.serial_number }} </td> 
+    <td> {{ entry.make }} </td> 
+
+     </tr>
+      {% comment %} {{ entry.date_received}} {% endcomment %}
+      {% endfor %}
+    </table>
+
+
+
+
+
+<div class="container">
+    <div class="row p-5">
+            <a href="/export/" class="btn btn-outline-primary" role="button">Download the CSV file</a>
+    </div>
+</div>
+{% endblock %}

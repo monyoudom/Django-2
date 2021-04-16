@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Setup Entries  {% endblock  %}
+{% block content %}
+<div class = "container" >
+<div class = "row">
+
+<table border="3px solid"  >
+<h3> Setup DATABASE  <h3>
+<tr>
+<td><b>Setup Name</td>
+<td><b>Device Type</td>
+<td><b>Device Hostname</td>
+<td><b>Device Serial no.</td>
+<td><b>Device IP</td>
+<td><b>Device MAC</td>
+{% comment %} <td><b>Attenuator</td> {% endcomment %}
+<td><b>Device Make</td>
+</tr>
+
+           {% for entry in setup_entries %}
+      <tr>
+     <td>{{ entry.setup_name }}</td>
+    <td>{{ entry.device_type }}</td>
+    <td>{{ entry.device_type.hostname }} </td>
+    <td>{{ entry.device_type.serial_number }}</td>
+    <td>{{ entry.device_type.ip }}</td>
+    <td>{{ entry.device_type.mac }}</td>
+    {% comment %} <td>{{ entry.attenuator }}</td> {% endcomment %}
+    <td>{{ entry.device_type.make }}</td>
+
+     </tr>
+      {% comment %} {{ entry.date_received}} {% endcomment %}
+      {% endfor %}
+    </table>
+
+
+
+
+
+<div class="container">
+    <div class="row p-5">
+            <a href="/export/set-up" class="btn btn-outline-primary" role="button">Download the CSV file</a>
+    </div>
+</div>
+{% endblock %}

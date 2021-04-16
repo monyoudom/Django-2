@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Device
+{% endblock %}
+
+
+{% block content %}
+<h3>Add Device </h3>
+
+ <div class="container">
+    <form method="POST" action="/add_device/">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Hostname</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name= "hostname" placeholder="gitlab.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Serial Number</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name= "serial_number" placeholder="S/N123ABC123" required >
+        </div>
+
+         <div class="form-group">
+          <label for="exampleFormControlSelect1">IP Address</label>
+          <input type="text" class="form-control"  id="exampleFormControlSelect1" name= "ip" placeholder="192.158. 1.38" required>
+        </div> 
+        <div class="form-group">
+            <label for="exampleFormControlInput1">MAC Address</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name= "mac" placeholder="00:1B:44:11:3A:B7" required>
+
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Type of Device</label>
+            <select input type="text" class="form-control" id="exampleFormControlInput1" name= "device" placeholder="CU, DU" required>
+            <option>CU</option>
+            <option>DU</option>
+            <option>RRH</option>
+            <option>UE</option>
+            <option>STU</option>
+            <option>UE Laptop</option>
+            <option>EPC</option>
+            <option>5G Core</option>
+            <option>Programmable Attenuators</option>
+          </select>          
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Make/Model</label>
+            <select input type="text" class="form-control" id="exampleFormControlInput1" name= "make" required>
+            <option>Nokia</option>
+            <option>Sony</option>
+            <option>Rakuten</option>
+            <option>Dish</option>
+            </select>          
+          </div>
+ 
+          </div>
+
+         
+          <button type="submit" class="btn btn-primary"> Submit </button>
+
+      </form>
+{% endblock %}
