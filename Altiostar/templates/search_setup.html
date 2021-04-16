@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+  {% block content %} 
+  <form method="get">
+      {% comment %} <div class="well"> {% endcomment %}
+      <h4 style="margin-top: 0">Search Setup in Database</h4>
+      
+    {{ filter.form.as_table}}
+    <button type="submit" >Search</button>
+  </form>
+
+  <ul>  
+  {% for Setup in filter.qs %}
+    {{ Setup.setup_name }}<br>
+  {% endfor %}
+  </ul>
+
+
+  {% comment %} <div class="container">
+    <div class="row p-5">
+            <a href="/search_export/" class="btn btn-outline-primary" role="button">Download the CSV file</a>
+    </div>
+</div> {% endcomment %}
+
+  {% endblock %}

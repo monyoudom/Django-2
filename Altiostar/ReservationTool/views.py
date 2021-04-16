@@ -3,6 +3,7 @@ from ReservationTool.models import Device
 from .models import Device,Setup
 from django.views.generic.base import TemplateResponseMixin, View
 import csv,random,string
+from .filters import ItemFilter
 
 
 def rand_slug():
@@ -102,3 +103,17 @@ def export_set_up(request):
         writer.writerow(list)
 
     return response
+
+def search_setup(request):
+    #inward_list = Form1.objects.all()
+    #inward_filter = InwardFilter(request.GET, queryset=inward_list)
+    item_list = Setup.objects.all()
+    item_filter = ItemFilter(request.GET, queryset=item_list)
+    return render(request, 'search_setup.html', {'filter': item_filter })
+
+def search_device(request):
+    #inward_list = Form1.objects.all()
+    #inward_filter = InwardFilter(request.GET, queryset=inward_list)
+    # item_list = Device.objects.all()
+    # item_filter = ItemFilter(request.GET, queryset=item_list)
+    return render(request, 'search_device.html', {'filter': item_filter })
