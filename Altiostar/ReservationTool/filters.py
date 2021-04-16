@@ -13,5 +13,5 @@ class SetupFilter(django_filters.FilterSet):
 class DeviceFilter(django_filters.FilterSet):
     hostname = django_filters.CharFilter(lookup_expr='icontains')  
     class Meta:
-        model = Device
+        model = Device  
         fields = ['hostname']
