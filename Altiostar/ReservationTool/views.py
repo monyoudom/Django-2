@@ -42,12 +42,12 @@ class AddSetupView(TemplateResponseMixin, View):
     def get(self, request, *args, **kwargs):
         devices = Device.objects.filter(setup__isnull=True)
 
-        type = ["device type","CU","DU","RRH","UE","STU","UE Laptop","EPC","5G Core","Programmable Attenuators"]
+        type = ["Select Device Type","CU","DU","RRH","UE","STU","UE Laptop","EPC","5G Core","Programmable Attenuators"]
         return self.render_to_response({'devices':devices,"type":type})
 
     def post(self, request, *args, **kwargs):
         devices = Device.objects.filter(setup__isnull=True)
-        type = ["device type","CU","DU","RRH","UE","STU","UE Laptop","EPC","5G Core","Programmable Attenuators"]
+        type = ["Select Device Type","CU","DU","RRH","UE","STU","UE Laptop","EPC","5G Core","Programmable Attenuators"]
         dict = request.POST.copy()
         print(dict)
         print(len(dict))
