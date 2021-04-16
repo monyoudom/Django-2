@@ -32,16 +32,6 @@ def view_device(request):
     context['entries'] = entries
     return render(request, 'view_device.html', context)
 
-def add_misc(request):
-    # if request.method == "POST":
-    #     rf_shield = request.POST.get('rf_shield')
-    #     attenuator = request.POST.get('attenuator')
-    #    # slug = rand_slug()
-    #    # new_slug = slug + '-' +hostname.lower()
-    #     misc = Misc(rf_shield=rf_shield, attenuator=attenuator)
-    #     misc.save()
-    return render(request, "add_misc.html", {})
-
 
 class AddSetupView(TemplateResponseMixin, View):
     template_name = 'add_setup.html'

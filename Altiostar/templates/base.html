@@ -2,48 +2,64 @@
 <html lang="en">
 <head>
     <style type="text/css">
-      /* The sidebar menu */
-      .sidenav {
-        height: 100%; /* Full-height: remove this if you want "auto" height */
-        width: 200px; /* Set the width of the sidebar */
-        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-        z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
-        left: 0;
-        background-color: #0277b5;  /* #111; Black */
-        overflow-x: hidden; /* Disable horizontal scroll */
-        padding-top: 20px;
-      }
 
-      /* The navigation menu links */
-      .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #ffffff ; /*#818181;*/
-        display: block;
-      }
-
-      /* When you mouse over the navigation links, change their color */
-      .sidenav a:hover {
-        color: #f1f1f1;
-      }
-
-      /* Style page content */
-      .main {
-        margin-left: 160px; /* Same as the width of the sidebar */
-        padding: 0px 10px;
-      }
-
-      /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-      @media screen and (max-height: 450px) {
-        .sidenav {padding-top: 15px;}
-        .sidenav a {font-size: 18px;}
-      }
+	/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #0277b5;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffffff;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+/* Add an active class to the active dropdown button */
+.active {
+  {% comment %} background-color: green; {% endcomment %}
+  color: white;
+}
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  {% comment %} background-color: #262626; {% endcomment %}
+  padding-left: 8px;
+}
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
     </style>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>{% block title %}Title 1{% endblock %}</title>
+      <script src="https://kit.fontawesome.com/d5e4526a27.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -51,13 +67,25 @@
   <!-- Side navigation -->
   <div class="sidenav">
     <a href="/">Home</a>
+    <button class="dropdown-btn">Device 
+    <i class="fa fa-chevron-right"></i>
+  </button>
+  <div class="dropdown-container">
+
     <a href="/add_device">Add Device</a>
+    <a href="/add_device">Edit Device</a>
     <a href="/view_device">View Devices</a>
+    </div>
+
+    <button class="dropdown-btn">Setup 
+    <i class="fas fa-chevron-right"></i>
+  </button>
+  <div class="dropdown-container">
+    
     <a href="/add_setup">Add Setup</a>
+    <a href="/add_setup">Edit Setup</a>
     <a href="/view_setup">View Setup</a>
-    <a href="/add_misc">Add Misc</a>
-
-
+  </div>
   </div>
 
   <!-- Page content -->
@@ -70,7 +98,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
         {% endblock %}
       </div>
     </div>
@@ -84,6 +111,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 <script>
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
 {% block script_block %}
 
 {% endblock %}

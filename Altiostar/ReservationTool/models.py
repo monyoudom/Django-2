@@ -22,6 +22,3 @@ class Setup(models.Model):
 
     def __str__(self):
       return self.setup_name
-
-class Misc(models.Model):
-    rf_shield = models.CharField(max_length=125)
