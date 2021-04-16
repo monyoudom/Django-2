@@ -17,6 +17,8 @@ class Device(models.Model):
 class Setup(models.Model):
     setup_name = models.CharField(max_length=125)
     device_type = models.ForeignKey(Device, on_delete=models.CASCADE)
+   # setup_type = models.CharField(max_length=125)
+
    # attenuator = models.CharField(max_length=125)
 
 

@@ -6,10 +6,12 @@ from .models import *
 
 
 class SetupFilter(django_filters.FilterSet):
-    setup_name = django_filters.CharFilter(lookup_expr='icontains')  
+    setup_name = django_filters.CharFilter(lookup_expr='icontains') 
+   # device_type = django_filters.CharFilter(lookup_expr='icontains')
+
     class Meta:
         model = Setup
-        fields = ['setup_name']
+        fields = ['setup_name' ]
 
 class DeviceFilter(django_filters.FilterSet):
     hostname = django_filters.CharFilter(lookup_expr='icontains')  
