@@ -54,13 +54,14 @@ class AddSetupView(TemplateResponseMixin, View):
         print(dict)
         print(len(dict))
         csrf = dict.pop('csrfmiddlewaretoken')
-        setup_name = dict.pop('setup_name')
+        setup_name = dict.pop('setup_name')[0]
+        setup_type = dict.pop('setup_type')[0]
         for key, value in dict.items():
             object = Device.objects.get(slug=value)
             try:
                Setup.objects.get(device_type=object)
             except:
-               setup=Setup(setup_name=setup_name,device_type=object)
+               setup=Setup(setup_name=setup_name,device_type=object, setup_type=setup_type)
                setup.save()
         return self.render_to_response({'devices':devices,"type":type})
 
