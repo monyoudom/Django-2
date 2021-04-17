@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
   {% block content %} 
-  <form method="get">
+  <form method="get" style="display: flex; flex-direction: column;">
       {% comment %} <div class="well"> {% endcomment %}
       <h4 style="margin-top: 0">Search Device in Database</h4>
       
-    {{ filter.form.as_table}}
-    <button type="submit" >Search</button>
+    {{filter.form}}
+    
+    <button type="submit" style="margin-top: 8px;">Search</button>
   </form>
 
   <ul>  
